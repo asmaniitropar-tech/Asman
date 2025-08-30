@@ -13,7 +13,9 @@ export const GlobalModuleCard: React.FC<GlobalModuleCardProps> = ({
   moduleName, 
   content 
 }) => {
-  const module = GLOBAL_MODULES.find(m => m.value === moduleName.toLowerCase()) || GLOBAL_MODULES[0];
+  const module = GLOBAL_MODULES.find(m => 
+    moduleName && m.label.toLowerCase() === moduleName.toLowerCase()
+  ) || GLOBAL_MODULES[0];
 
   return (
     <Card>
