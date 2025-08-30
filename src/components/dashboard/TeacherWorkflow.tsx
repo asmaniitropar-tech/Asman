@@ -41,6 +41,11 @@ export const TeacherWorkflow: React.FC<TeacherWorkflowProps> = ({
   };
 
   const handleGenerate = async () => {
+    if (!canProceed()) {
+      toast.error('Please complete all required fields before generating.');
+      return;
+    }
+    
     const input: LessonInput = {
       content: contentType === 'ncert' ? selectedContent : uploadedContent,
       classLevel,
@@ -50,17 +55,18 @@ export const TeacherWorkflow: React.FC<TeacherWorkflowProps> = ({
       uploadType: contentType
     };
     
+    toast.loading('Creating your AI lesson pack...', { id: 'workflow-generation' });
     await onGenerate(input);
   };
 
   const canProceed = () => {
     switch (step) {
       case 1:
-        return contentType === 'ncert' ? selectedContent : uploadedContent.trim();
+        return contentType === 'ncert' ? !!selectedContent : !!uploadedContent.trim();
       case 2:
         return true; // Global modules are optional
       case 3:
-        return aiCharacter;
+        return !!aiCharacter;
       case 4:
         return true;
       default:

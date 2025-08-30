@@ -25,6 +25,7 @@ export const UploadSection: React.FC<UploadSectionProps> = ({
       'image/*': ['.png', '.jpg', '.jpeg'],
       'audio/*': ['.mp3', '.wav', '.m4a']
     },
+    maxSize: 10 * 1024 * 1024, // 10MB limit
     onDrop: async (files) => {
       const file = files[0];
       if (file) {
@@ -44,10 +45,18 @@ export const UploadSection: React.FC<UploadSectionProps> = ({
           toast.success('Content extracted successfully!', { id: 'processing' });
         } catch (error) {
           console.error('File processing error:', error);
-          toast.error('Failed to process file. Please try again.', { id: 'processing' });
+          toast.error(`Failed to process ${file.name}. Please try again.`, { id: 'processing' });
         } finally {
           setProcessing(false);
         }
+      }
+    },
+    onDropRejected: (rejectedFiles) => {
+      const file = rejectedFiles[0];
+      if (file.errors.some(e => e.code === 'file-too-large')) {
+        toast.error('File too large. Please upload files smaller than 10MB.');
+      } else {
+        toast.error('File type not supported. Please upload PDF, image, or audio files.');
       }
     }
   });

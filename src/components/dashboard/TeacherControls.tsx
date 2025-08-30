@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
+import { LessonDisplay } from './LessonDisplay';
+import { ExportOptions } from './ExportOptions';
 import { Play, Pause, Volume2, VolumeX, RotateCcw, Settings, Globe, MessageCircle } from 'lucide-react';
 import { LessonPack } from '../../types';
+import toast from 'react-hot-toast';
 
 interface TeacherControlsProps {
   lessonPack: LessonPack;
@@ -22,10 +25,38 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
   const [simplificationLevel, setSimplificationLevel] = useState<'normal' | 'simple' | 'very-simple'>('normal');
 
   const handleVoiceCommand = (command: string) => {
-    // Simulate voice command processing
-    console.log('Voice command:', command);
+    toast.success(`Voice command activated: "${command}"`);
+    
+    switch (command) {
+      case 'simplify':
+        setSimplificationLevel('simple');
+        toast.info('AI will now provide simpler explanations');
+        break;
+      case 'translate':
+        toast.info('Language switching activated');
+        break;
+      case 'repeat':
+        toast.info('Replaying current section');
+        break;
+      default:
+        console.log('Voice command:', command);
+    }
   };
 
+  const toggleGlobalModules = () => {
+    setGlobalModulesEnabled(!globalModulesEnabled);
+    toast.success(globalModulesEnabled ? 'Global modules hidden' : 'Global modules enabled');
+  };
+
+  const toggleVoice = () => {
+    setVoiceEnabled(!voiceEnabled);
+    if (!voiceEnabled) {
+      // Test voice synthesis
+      const utterance = new SpeechSynthesisUtterance('AI voice is now enabled and ready to assist your teaching.');
+      speechSynthesis.speak(utterance);
+    }
+    toast.success(voiceEnabled ? 'AI voice muted' : 'AI voice enabled');
+  };
   return (
     <div className="space-y-6">
       {/* Main Teaching Controls */}
@@ -57,7 +88,7 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
           </h3>
           <div className="space-y-2">
             <Button
-              onClick={() => setVoiceEnabled(!voiceEnabled)}
+              onClick={toggleVoice}
               variant="outline"
               className="w-full"
             >
@@ -65,7 +96,7 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
               {voiceEnabled ? 'Mute AI Voice' : 'Enable AI Voice'}
             </Button>
             <Button
-              onClick={() => setGlobalModulesEnabled(!globalModulesEnabled)}
+              onClick={toggleGlobalModules}
               variant="outline"
               className="w-full"
             >
@@ -150,6 +181,15 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
                   <div className="text-sm">Engaging Students</div>
                 </motion.div>
               </div>
+              
+              {/* Real-time Status */}
+              <div className="mt-6 p-4 bg-white/10 rounded-lg">
+                <p className="text-sm">
+                  Current Section: <span className="font-bold">{currentSection}</span> | 
+                  Voice: <span className="font-bold">{voiceEnabled ? 'ON' : 'OFF'}</span> | 
+                  Global Modules: <span className="font-bold">{globalModulesEnabled ? 'ACTIVE' : 'HIDDEN'}</span>
+                </p>
+              </div>
             </motion.div>
           ) : (
             <div className="relative z-10 text-center text-white/70">
@@ -187,7 +227,12 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
       </Card>
 
       {/* Lesson Content Display */}
-      <LessonDisplay lessonPack={lessonPack} teachingMode={isActive} />
+      <LessonDisplay 
+        lessonPack={lessonPack} 
+        teachingMode={isActive}
+        globalModulesEnabled={globalModulesEnabled}
+        voiceEnabled={voiceEnabled}
+      />
       
       {/* Export and Share */}
       <ExportOptions lessonPack={lessonPack} />

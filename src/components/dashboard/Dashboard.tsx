@@ -21,15 +21,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
 
   const handleGenerateLesson = async (input: LessonInput) => {
     setLoading(true);
+    toast.loading('AI is creating your lesson pack...', { id: 'generation' });
     
     try {
       const pack = await generateTeacherLessonPack(input);
       setLessonPack(pack);
       setCurrentStep('preview');
-      toast.success('Lesson pack ready for your classroom!');
+      toast.success('Lesson pack ready for your classroom!', { id: 'generation' });
     } catch (error) {
       console.error('Generation error:', error);
-      toast.error('Failed to generate lesson pack. Please try again.');
+      toast.error('Failed to generate lesson pack. Please try again.', { id: 'generation' });
     } finally {
       setLoading(false);
     }

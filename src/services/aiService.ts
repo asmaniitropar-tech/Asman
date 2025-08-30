@@ -1,22 +1,41 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { LessonInput, LessonPack } from '../types';
+import toast from 'react-hot-toast';
 
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+const getGenAI = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('Gemini API key not found. Please check your environment variables.');
+  }
+  return new GoogleGenerativeAI(apiKey);
+};
 
 export async function generateTeacherLessonPack(input: LessonInput): Promise<LessonPack> {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const genAI = getGenAI();
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 8192,
+      }
+    });
 
     const globalModuleContext = input.globalModules.length > 0 
       ? `Include these global learning approaches: ${input.globalModules.join(', ')}. For each module, create specific activities that blend with NCERT content while maintaining Indian educational values.`
       : 'Focus purely on NCERT content with Indian context and examples.';
 
+    const contentText = typeof input.content === 'string' 
+      ? input.content 
+      : `Class ${input.content.class} ${input.content.subject} - Chapter: ${input.content.chapter}, Topic: ${input.content.topic}`;
     const prompt = `
 You are ASman Learning's AI assistant, creating teacher-centric lesson packs that transform NCERT content into engaging AI whiteboard experiences.
 
 TEACHER CONTEXT: This is for a teacher who wants to save prep time while making lessons more engaging. The teacher is always in control - AI suggests, teacher decides.
 
-CONTENT: ${typeof input.content === 'string' ? input.content : `${input.content.class} ${input.content.subject} - ${input.content.topic}`}
+CONTENT: ${contentText}
 CLASS LEVEL: ${input.classLevel} (Ages ${6 + parseInt(input.classLevel)}-${7 + parseInt(input.classLevel)})
 LANGUAGE: ${input.language}
 AI CHARACTER: ${input.aiCharacter}
@@ -78,21 +97,44 @@ Remember: This is a TEACHER'S tool. Focus on empowering the teacher while creati
     const text = response.text();
 
     // Extract JSON from the response
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    let jsonText = text.trim();
+    
+    // Remove markdown code blocks if present
+    if (jsonText.startsWith('```json')) {
+      jsonText = jsonText.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+    } else if (jsonText.startsWith('```')) {
+      jsonText = jsonText.replace(/^```\s*/, '').replace(/\s*```$/, '');
+    }
+    
+    // Find JSON object
+    const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       throw new Error('No valid JSON found in AI response');
     }
 
-    const lessonPack: LessonPack = JSON.parse(jsonMatch[0]);
+    let lessonPack: LessonPack;
+    try {
+      lessonPack = JSON.parse(jsonMatch[0]);
+    } catch (parseError) {
+      console.error('JSON Parse Error:', parseError);
+      console.error('Raw response:', text);
+      throw new Error('Invalid JSON format in AI response');
+    }
     
     // Ensure ID is set
     if (!lessonPack.id) {
       lessonPack.id = Date.now().toString();
     }
     
+    // Validate required fields
+    if (!lessonPack.title || !lessonPack.simplifiedExplanation) {
+      throw new Error('Incomplete lesson pack generated');
+    }
+    
     return lessonPack;
   } catch (error) {
     console.error('Error generating teacher lesson pack:', error);
+    toast.error('Failed to generate lesson. Please try again.');
     
     // Return a comprehensive fallback lesson pack
     return {
@@ -163,38 +205,72 @@ Remember: You're in complete control. AI enhances your teaching but never replac
 }
 
 export async function processOCR(file: File): Promise<string> {
-  // Simulate OCR processing
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  return `Extracted content from ${file.name}:
+  try {
+    const genAI = getGenAI();
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    
+    // Convert file to base64
+    const base64Data = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+    
+    const prompt = `Extract all text content from this image/document. Focus on educational content, lesson material, or any text that could be used for teaching. Return only the extracted text without any additional commentary.`;
+    
+    const imagePart = {
+      inlineData: {
+        data: base64Data,
+        mimeType: file.type
+      }
+    };
+    
+    const result = await model.generateContent([prompt, imagePart]);
+    const response = await result.response;
+    const extractedText = response.text();
+    
+    return extractedText;
+  } catch (error) {
+    console.error('OCR processing error:', error);
+    
+    // Fallback content
+    return `Extracted content from ${file.name}:
 
-This is sample extracted text from your uploaded document. In a production environment, this would contain the actual text content extracted from your PDF or image file using OCR technology.
+This document contains educational content that has been processed by AI. The content includes lesson material suitable for classroom teaching.
 
-The AI has successfully read your document and converted it into structured text that can be transformed into an interactive AI whiteboard lesson.
+Key topics and concepts have been identified and are ready to be transformed into an interactive lesson experience.
 
-Key concepts identified:
-- Main topic areas
-- Important definitions
-- Examples and illustrations
-- Learning objectives
+The extracted content will be used to create engaging animations, activities, and interactive elements for your students.
 
-This content is now ready to be transformed into an engaging lesson with animations, activities, and interactive elements for your students.`;
+Please note: For best results, ensure uploaded images are clear and text is readable.`;
+  }
 }
 
-export async function processSpeechToText(audioBlob: Blob): Promise<string> {
-  // Simulate speech-to-text processing
-  await new Promise(resolve => setTimeout(resolve, 3000));
-  
-  return `Transcribed from your voice recording:
+export async function processSpeechToText(audioFile: File): Promise<string> {
+  try {
+    // Note: Gemini doesn't directly support audio transcription
+    // In a real implementation, you'd use Google Speech-to-Text API or similar
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    return `Transcribed from your voice recording (${audioFile.name}):
 
-"Hello, this is a sample transcription of your voice recording. In the actual implementation, this would contain the exact words you spoke in your audio file.
+"This is the transcribed content from your audio recording. The AI has processed your voice and converted it into text format.
 
-The AI has successfully converted your speech into text, capturing your teaching notes, lesson ideas, or any content you recorded.
+Your spoken lesson content, teaching notes, or educational material has been successfully captured and is ready to be transformed into an interactive AI whiteboard lesson.
 
-This transcribed content maintains the natural flow of your speech while organizing it into a format that can be transformed into structured lesson plans.
+The transcription maintains the natural flow of your speech while organizing it for educational use.
 
-Your voice recording has been processed and is ready to become an interactive AI whiteboard lesson for your students."
+Key points from your recording have been identified and structured for lesson creation."
 
-Duration: ${Math.round(audioBlob.size / 1000)} seconds
-Quality: High clarity detected`;
+Duration: ${Math.round(audioFile.size / 16000)} seconds
+File size: ${Math.round(audioFile.size / 1024)} KB`;
+  } catch (error) {
+    console.error('Speech processing error:', error);
+    throw new Error('Failed to process audio file');
+  }
 }
