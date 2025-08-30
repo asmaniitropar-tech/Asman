@@ -74,17 +74,12 @@ Respond with ONLY valid JSON in this exact format:
     // Clean and parse JSON response
     let cleanedText = text.trim();
     
-    // Remove any markdown code blocks
     cleanedText = cleanedText.replace(/```json\s*/g, '').replace(/```\s*/g, '');
-    
-    // Find JSON object
     const jsonMatch = cleanedText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       throw new Error('No valid JSON found in AI response');
-    }
     
     const parsedOutput = JSON.parse(jsonMatch[0]);
-    
     // Validate required fields
     if (!parsedOutput.simplified_explanation || 
         !parsedOutput.practical_activity || 
@@ -173,21 +168,9 @@ Digital: AI Whiteboard, student devices (optional), voice interaction
 
 🔸 Phase 2: Hands-On Exploration (25 min)
 Station 1: Physical exploration with real objects
-Station 2: AI whiteboard interaction (draw/touch)
-Station 3: Storytelling with visual props  
-Station 4: Question corner with AI assistant
 
-🔸 Phase 3: Creative Synthesis (15 min)
-- Groups create visual stories on AI whiteboard
-- Students explain using drawings and words
 - AI illustrates student ideas in real-time
-- Celebration with digital badges
-
-🌟 PERSONALIZED FEATURES:
 • AI adapts explanations to individual responses
-• Visual learners get more diagrams
-• Kinesthetic learners get touch activities
-• Verbal learners get storytelling
 
 🎯 OUTCOMES:
 ✅ Active engagement with AI-enhanced visuals
