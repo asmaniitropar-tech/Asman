@@ -49,9 +49,24 @@ export const LessonCard: React.FC<LessonCardProps> = ({
       </div>
       <div className="p-6">
         <div className="prose prose-sm max-w-none">
-          <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-            {content}
-          </p>
+          <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            {content.split('[AI DRAWS:').map((part, index) => {
+              if (index === 0) return <p key={index}>{part}</p>;
+              
+              const [animationDesc, ...rest] = part.split(']');
+              return (
+                <div key={index}>
+                  <div className="my-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-l-4 border-blue-400">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <span className="text-blue-600 font-semibold text-sm">🎨 AI ANIMATION:</span>
+                    </div>
+                    <p className="text-blue-700 text-sm font-medium">{animationDesc}</p>
+                  </div>
+                  <p>{rest.join(']')}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </Card>
