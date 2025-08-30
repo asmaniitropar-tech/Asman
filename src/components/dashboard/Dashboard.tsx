@@ -29,7 +29,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
       toast.success('Lesson pack generated successfully!');
     } catch (error) {
       console.error('Generation error:', error);
-      toast.error('Failed to generate lesson pack. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to generate lesson pack. Please try again.';
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

@@ -8,6 +8,8 @@ import { Select } from '../ui/Select';
 import { Upload, FileText, Mic, Sparkles } from 'lucide-react';
 import { CLASS_LEVELS, GLOBAL_MODULES } from '../../config/constants';
 import { LessonInput } from '../../types';
+import { processOCR, processSpeechToText } from '../../services/aiService';
+import toast from 'react-hot-toast';
 
 interface UploadSectionProps {
   onGenerate: (input: LessonInput) => Promise<void>;
@@ -17,6 +19,7 @@ interface UploadSectionProps {
 export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loading }) => {
   const [uploadType, setUploadType] = useState<'text' | 'pdf' | 'audio'>('text');
   const [text, setText] = useState('');
+  const [processing, setProcessing] = useState(false);
   const [classLevel, setClassLevel] = useState('3');
   const [globalModule, setGlobalModule] = useState('auto');
 
@@ -26,16 +29,31 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
       'image/*': ['.png', '.jpg', '.jpeg'],
       'audio/*': ['.mp3', '.wav', '.m4a']
     },
-    onDrop: (files) => {
+    onDrop: async (files) => {
       const file = files[0];
       if (file) {
+        setProcessing(true);
+        try {
+          let extractedText = '';
+          
         if (file.type.includes('pdf') || file.type.includes('image')) {
           setUploadType('pdf');
+            toast.loading('Processing document...', { id: 'processing' });
+            extractedText = await processOCR(file);
         } else if (file.type.includes('audio')) {
           setUploadType('audio');
+            toast.loading('Transcribing audio...', { id: 'processing' });
+            extractedText = await processSpeechToText(file);
         }
-        // In a real app, you'd process the file here
-        setText(`[${file.name} uploaded - processing would happen here]`);
+          
+          setText(extractedText);
+          toast.success('File processed successfully!', { id: 'processing' });
+        } catch (error) {
+          console.error('File processing error:', error);
+          toast.error('Failed to process file. Please try again.', { id: 'processing' });
+        } finally {
+          setProcessing(false);
+        }
       }
     }
   });
@@ -43,12 +61,17 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
   const handleGenerate = async () => {
     if (!text.trim()) return;
     
-    await onGenerate({
-      text,
-      classLevel,
-      globalModule,
-      uploadType
-    });
+    try {
+      await onGenerate({
+        text,
+        classLevel,
+        globalModule,
+        uploadType
+      });
+    } catch (error) {
+      console.error('Generation error:', error);
+      toast.error('Failed to generate lesson pack. Please try again.');
+    }
   };
 
   return (
@@ -98,18 +121,31 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
             className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
               isDragActive
                 ? 'border-orange-500 bg-orange-50'
-                : 'border-gray-300 hover:border-gray-400'
+                : processing 
+                  ? 'border-blue-500 bg-blue-50' 
+                  : 'border-gray-300 hover:border-gray-400'
             }`}
           >
             <input {...getInputProps()} />
-            <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            {processing ? (
+              <div className="w-12 h-12 mx-auto mb-4 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            )}
             <p className="text-lg font-medium text-gray-700 mb-2">
-              {isDragActive ? 'Drop your file here' : `Upload ${uploadType === 'pdf' ? 'PDF or Image' : 'Audio'} file`}
+              {processing 
+                ? 'Processing your file...' 
+                : isDragActive 
+                  ? 'Drop your file here' 
+                  : `Upload ${uploadType === 'pdf' ? 'PDF or Image' : 'Audio'} file`
+              }
             </p>
             <p className="text-sm text-gray-500">
-              {uploadType === 'pdf' 
-                ? 'Supports PDF, PNG, JPG files' 
-                : 'Supports MP3, WAV, M4A files'
+              {processing
+                ? 'Please wait while we extract the content...'
+                : uploadType === 'pdf' 
+                  ? 'Supports PDF, PNG, JPG files' 
+                  : 'Supports MP3, WAV, M4A files'
               }
             </p>
           </div>
@@ -152,12 +188,12 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
         <Button
           onClick={handleGenerate}
           size="lg"
-          loading={loading}
-          disabled={!text.trim()}
+          loading={loading || processing}
+          disabled={!text.trim() || processing}
           className="px-12 py-4 text-xl"
         >
           <Sparkles className="w-6 h-6 mr-3" />
-          Generate Lesson Pack
+          {processing ? 'Processing File...' : 'Generate Lesson Pack'}
         </Button>
       </div>
     </div>
