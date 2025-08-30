@@ -37,10 +37,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
   };
 
   const stats = [
-    { icon: BookOpen, label: 'Interactive Lessons', value: '24', color: 'text-orange-600' },
-    { icon: Users, label: 'Students Engaged', value: '156', color: 'text-green-600' },
-    { icon: Sparkles, label: 'AI Visualizations', value: '89', color: 'text-blue-600' },
-    { icon: TrendingUp, label: 'Learning Success', value: '98%', color: 'text-purple-600' }
+    { icon: BookOpen, label: 'NCERT Lessons Enhanced', value: '150+', color: 'text-orange-600' },
+    { icon: Users, label: 'Teachers Empowered', value: '500+', color: 'text-green-600' },
+    { icon: Sparkles, label: 'AI Whiteboard Sessions', value: '2.5K', color: 'text-blue-600' },
+    { icon: TrendingUp, label: 'Student Engagement', value: '95%', color: 'text-purple-600' }
   ];
 
   return (
@@ -57,10 +57,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
               className="text-center mb-12"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                Ready to Transform Your Classroom, <span className="text-orange-600">{user.name.split(' ')[0]}</span>? 🎨
+                Transform Your Classroom with AI, <span className="text-orange-600">{user.name.split(' ')[0]}</span>! 🎨
               </h1>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Create interactive AI whiteboard content and personalized learning experiences for Class 1-5 students
+                Where technology, culture, and creativity work together to make NCERT lessons come alive through interactive AI whiteboards
               </p>
             </motion.div>
 
