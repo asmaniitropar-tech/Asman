@@ -286,20 +286,19 @@ export const LessonDisplay: React.FC<LessonDisplayProps> = ({
                       {index + 1}
                     </span>
                     <p className="text-gray-700">{step}</p>
+                    {teachingMode && (
+                      <Button
+                        onClick={() => speakText(step)}
+                        variant="outline"
+                        size="sm"
+                        className="ml-auto"
+                        disabled={!voiceEnabled}
+                      >
+                        <Volume2 className="w-3 h-3 mr-1" />
+                        Read Step
+                      </Button>
+                    )}
                   </div>
-                      {teachingMode && (
-                        <Button
-                          onClick={() => speakText(step)}
-                          variant="outline"
-                          size="sm"
-                          className="mt-2"
-                          disabled={!voiceEnabled}
-                        >
-                          <Volume2 className="w-3 h-3 mr-1" />
-                          Read Step
-                        </Button>
-                      )}
-                    </div>
                 ))}
               </div>
             </div>
