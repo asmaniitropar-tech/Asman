@@ -78,16 +78,39 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
     <div className="space-y-6">
       <Card className="p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-          <Upload className="w-6 h-6 mr-3 text-orange-500" />
-          Upload NCERT Content
+          <Sparkles className="w-6 h-6 mr-3 text-orange-500" />
+          Create Interactive AI Whiteboard Content
         </h2>
 
         {/* Upload Type Selector */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="mb-6">
+          <div className="bg-blue-50 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold text-blue-800 mb-2">🎯 How ASman Learning Works:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-blue-700">
+              <div className="flex items-start space-x-2">
+                <span>📚</span>
+                <span>Upload NCERT lesson content</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <span>🎨</span>
+                <span>AI creates interactive whiteboard visuals</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <span>👥</span>
+                <span>Students engage with personalized activities</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <span>🌍</span>
+                <span>Global perspectives meet Indian values</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-3 gap-4">
           {[
-            { type: 'text', icon: FileText, label: 'Paste Text' },
-            { type: 'pdf', icon: Upload, label: 'Upload PDF/Image' },
-            { type: 'audio', icon: Mic, label: 'Upload Audio' }
+            { type: 'text', icon: FileText, label: 'NCERT Text Content' },
+            { type: 'pdf', icon: Upload, label: 'Textbook Pages (PDF/Image)' },
+            { type: 'audio', icon: Mic, label: 'Teacher Audio Notes' }
           ].map(({ type, icon: Icon, label }) => (
             <motion.button
               key={type}
@@ -105,18 +128,15 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
             </motion.button>
           ))}
         </div>
+        </div>
 
         {/* Content Input */}
         {uploadType === 'text' ? (
           <Textarea
-            label="NCERT Lesson Content"
+            label="NCERT Lesson Text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Paste your NCERT lesson content here... 
-
-Example: 'Water Cycle - Water from rivers and seas goes up to the sky as water vapor. It forms clouds and comes back as rain...'
-
-The AI will create interactive whiteboard animations and student-friendly explanations!"
+            placeholder="Paste your NCERT lesson content here..."
             rows={8}
           />
         ) : (
@@ -141,15 +161,15 @@ The AI will create interactive whiteboard animations and student-friendly explan
                 ? 'Processing your file...' 
                 : isDragActive 
                   ? 'Drop your file here' 
-                  : `Upload ${uploadType === 'pdf' ? 'NCERT Textbook Pages' : 'Teacher Audio Notes'}`
+                  : `Upload ${uploadType === 'pdf' ? 'PDF or Image' : 'Audio'} file`
               }
             </p>
             <p className="text-sm text-gray-500">
               {processing
-                ? 'AI is extracting content for whiteboard visualization...'
+                ? 'Please wait while we extract the content...'
                 : uploadType === 'pdf' 
-                  ? 'Upload textbook pages - AI will extract and visualize content' 
-                  : 'Upload audio notes - AI will transcribe and create activities'
+                  ? 'Supports PDF, PNG, JPG files' 
+                  : 'Supports MP3, WAV, M4A files'
               }
             </p>
           </div>
@@ -166,16 +186,11 @@ The AI will create interactive whiteboard animations and student-friendly explan
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
           <Select
-            label="Class Level (Age Group)"
+            label="Class Level"
             value={classLevel}
             onChange={(e) => setClassLevel(e.target.value)}
             options={CLASS_LEVELS}
           />
-          <div className="mt-3 p-3 bg-orange-50 rounded-lg">
-            <p className="text-sm text-orange-700">
-              🎯 Content will be tailored for Class {classLevel} students (ages {getAgeRange(classLevel)})
-            </p>
-          </div>
         </Card>
 
         <Card className="p-6">
@@ -187,7 +202,7 @@ The AI will create interactive whiteboard animations and student-friendly explan
           />
           <div className="mt-3 p-3 bg-blue-50 rounded-lg">
             <p className="text-sm text-blue-700">
-              🌍 {GLOBAL_MODULES.find(m => m.value === globalModule)?.description}
+              {GLOBAL_MODULES.find(m => m.value === globalModule)?.description}
             </p>
           </div>
         </Card>
@@ -202,20 +217,9 @@ The AI will create interactive whiteboard animations and student-friendly explan
           className="px-12 py-4 text-xl"
         >
           <Sparkles className="w-6 h-6 mr-3" />
-          {processing ? 'Processing Content...' : 'Create AI Whiteboard Lesson 🎨'}
+          {processing ? 'Processing File...' : 'Generate Lesson Pack'}
         </Button>
       </div>
     </div>
   );
-};
-
-const getAgeRange = (classLevel: string): string => {
-  const ageMap: Record<string, string> = {
-    '1': '6-7 years',
-    '2': '7-8 years', 
-    '3': '8-9 years',
-    '4': '9-10 years',
-    '5': '10-11 years'
-  };
-  return ageMap[classLevel] || '8-10 years';
 };
