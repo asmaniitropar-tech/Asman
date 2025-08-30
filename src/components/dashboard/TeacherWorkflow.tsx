@@ -278,15 +278,15 @@ export const TeacherWorkflow: React.FC<TeacherWorkflowProps> = ({
                 onClick={handleGenerate}
                 size="lg"
                 loading={loading}
-                className="px-12 py-4 text-xl"
+                className="px-16 py-6 text-2xl"
               >
                 <Sparkles className="w-6 h-6 mr-3" />
-                Generate My AI Whiteboard Lesson
+                🎯 Generate AI Lesson Pack
               </Button>
               
               <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
                 <p className="text-sm text-gray-700">
-                  🚀 <strong>What happens next:</strong> AI creates your complete lesson pack with animations, activities, Q&A, and teacher notes - all ready for your classroom!
+                  🚀 <strong>2-minute generation:</strong> Complete lesson pack with animations, Q&A, activities, and teacher controls - ready to project and teach!
                 </p>
               </div>
             </div>

@@ -36,59 +36,82 @@ export const GlobalModuleSelector: React.FC<GlobalModuleSelectorProps> = ({
     <div className="space-y-6">
       <div className="text-center mb-6">
         <p className="text-gray-600">
-          <strong>Teacher's Choice:</strong> Select global learning approaches to enhance your NCERT lesson. 
-          You can choose none, one, or multiple modules - you're in complete control.
+          <strong>Checkbox Selection:</strong> Add global learning styles to enhance NCERT content. 
+          Choose any combination or skip entirely - you decide what fits your class.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {GLOBAL_MODULES.map((module) => (
           <motion.div
             key={module.id}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Card 
-              className={`cursor-pointer transition-all duration-200 ${
+            <div 
+              className={`cursor-pointer transition-all duration-200 p-4 rounded-lg border-2 ${
                 selectedModules.includes(module.id)
-                  ? 'ring-2 ring-blue-500 shadow-lg'
-                  : 'hover:shadow-md'
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 hover:border-gray-300'
               }`}
               onClick={() => toggleModule(module.id)}
             >
-              <div className={`${module.color} p-4 text-white`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{module.character}</span>
-                    <div>
-                      <h3 className="text-lg font-semibold">{module.flag} {module.name}</h3>
-                      <p className="text-sm opacity-90">{module.description}</p>
-                    </div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center space-x-3">
+                  <span className="text-3xl">{module.flag}</span>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">{module.name}</h3>
+                    <p className="text-sm text-gray-600">{module.description}</p>
                   </div>
-                  <div className={`w-6 h-6 rounded-full border-2 border-white flex items-center justify-center ${
-                    selectedModules.includes(module.id) ? 'bg-white' : ''
-                  }`}>
-                    {selectedModules.includes(module.id) && (
-                      <span className="text-blue-600 text-sm">✓</span>
-                    )}
-                  </div>
+                </div>
+                <div className={`w-6 h-6 rounded border-2 flex items-center justify-center ${
+                  selectedModules.includes(module.id) 
+                    ? 'bg-blue-500 border-blue-500' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedModules.includes(module.id) && (
+                    <span className="text-white text-sm">✓</span>
+                  )}
                 </div>
               </div>
               
-              <div className="p-6">
-                <div className="mb-4">
-                  <h4 className="font-semibold text-gray-800 mb-2">Teaching Methodology:</h4>
-                  <p className="text-sm text-gray-600">{module.methodology}</p>
-                </div>
-                
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <h5 className="font-medium text-gray-800 mb-1">Example for Class {classLevel}:</h5>
-                  <p className="text-xs text-gray-600">{getExampleActivity(module.id)}</p>
-                </div>
+              <div className="bg-gray-50 p-3 rounded-lg">
+                <p className="text-sm text-gray-700">{module.methodology}</p>
               </div>
-            </Card>
+            </div>
           </motion.div>
         ))}
+      </div>
+      
+      {/* Auto-Suggest Option */}
+      <div className="mt-6">
+        <div 
+          className={`cursor-pointer transition-all duration-200 p-4 rounded-lg border-2 ${
+            selectedModules.includes('auto-suggest')
+              ? 'border-purple-500 bg-purple-50'
+              : 'border-gray-200 hover:border-gray-300'
+          }`}
+          onClick={() => toggleModule('auto-suggest')}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <span className="text-3xl">🤖</span>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">Auto-Suggest Global Modules</h3>
+                <p className="text-sm text-gray-600">Let AI choose the best global approaches for your content</p>
+              </div>
+            </div>
+            <div className={`w-6 h-6 rounded border-2 flex items-center justify-center ${
+              selectedModules.includes('auto-suggest') 
+                ? 'bg-purple-500 border-purple-500' 
+                : 'border-gray-300'
+            }`}>
+              {selectedModules.includes('auto-suggest') && (
+                <span className="text-white text-sm">✓</span>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       {selectedModules.length > 0 && (

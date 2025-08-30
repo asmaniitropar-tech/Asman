@@ -281,11 +281,10 @@ export const LessonDisplay: React.FC<LessonDisplayProps> = ({
               <h5 className="font-semibold text-gray-800 mb-3">📋 Step-by-Step Instructions:</h5>
               <div className="space-y-3">
                 {lessonPack.handsOnTask.steps.map((step, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                     <span className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                       {index + 1}
                     </span>
-                    <p className="text-gray-700">{step}</p>
                     {teachingMode && (
                       <Button
                         onClick={() => speakText(step)}
@@ -298,6 +297,7 @@ export const LessonDisplay: React.FC<LessonDisplayProps> = ({
                         Read Step
                       </Button>
                     )}
+                  </div>
                   </div>
                 ))}
               </div>

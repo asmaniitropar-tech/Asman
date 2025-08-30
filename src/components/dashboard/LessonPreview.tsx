@@ -37,7 +37,7 @@ export const LessonPreview: React.FC<LessonPreviewProps> = ({
         
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-800">{lessonPack.title}</h1>
-          <p className="text-gray-600 mt-1">Your AI whiteboard lesson is ready!</p>
+          <p className="text-gray-600 mt-1">🎯 Ready to project and teach with AI!</p>
         </div>
         
         <Button
@@ -54,9 +54,9 @@ export const LessonPreview: React.FC<LessonPreviewProps> = ({
       <div className="flex justify-center">
         <div className="flex bg-gray-100 rounded-lg p-1">
           {[
-            { id: 'preview', label: 'Preview Lesson', icon: '👁️' },
-            { id: 'teaching', label: 'Teaching Mode', icon: '🎯' },
-            { id: 'report', label: 'Engagement Report', icon: '📊' }
+            { id: 'preview', label: '👁️ Preview Lesson', icon: '' },
+            { id: 'teaching', label: '🎯 Teaching Mode', icon: '' },
+            { id: 'report', label: '📊 Post-Class Report', icon: '' }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -67,7 +67,7 @@ export const LessonPreview: React.FC<LessonPreviewProps> = ({
                   : 'text-gray-600 hover:text-gray-800'
               }`}
             >
-              {tab.icon} {tab.label}
+              {tab.label}
             </button>
           ))}
         </div>
@@ -85,10 +85,10 @@ export const LessonPreview: React.FC<LessonPreviewProps> = ({
             <Card className="p-6">
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  📋 Lesson Preview & Teacher Controls
+                  📋 Preview Your AI Lesson Pack
                 </h2>
                 <p className="text-gray-600">
-                  Review your lesson content and test all features before using in class
+                  Review content, test AI features, then project on smartboard/TV/mobile
                 </p>
               </div>
               

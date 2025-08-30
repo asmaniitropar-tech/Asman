@@ -27,36 +27,36 @@ export const GLOBAL_MODULES = [
     name: 'China Focus', 
     character: '👨‍🏫', 
     flag: '🇨🇳',
-    description: 'Discipline & Structured Learning',
+    description: 'Discipline & Repetition',
     color: 'bg-gradient-to-r from-red-500 to-red-600',
-    methodology: 'Drills, repetition, speed practice, group discipline'
+    methodology: 'Quick drills, repetition exercises, speed practice'
   },
   { 
     id: 'japan',
     name: 'Japan Focus', 
     character: '👩‍🏫', 
     flag: '🇯🇵',
-    description: 'Precision & Mindful Learning',
+    description: 'Precision & Mindfulness',
     color: 'bg-gradient-to-r from-pink-500 to-pink-600',
-    methodology: 'Group harmony, careful observation, respectful interaction'
+    methodology: 'Careful observation, group harmony, respectful participation'
   },
   { 
     id: 'usa',
     name: 'US Focus', 
     character: '👨‍🎓', 
     flag: '🇺🇸',
-    description: 'Curiosity & Innovation',
+    description: 'Curiosity & Experiments',
     color: 'bg-gradient-to-r from-blue-500 to-blue-600',
-    methodology: 'Questions, experiments, individual exploration, creativity'
+    methodology: 'Hands-on experiments, "what if" questions, individual exploration'
   },
   { 
     id: 'europe',
     name: 'Europe Focus', 
     character: '👩‍🎨', 
     flag: '🇪🇺',
-    description: 'Creativity & Artistic Expression',
+    description: 'Creativity & Art',
     color: 'bg-gradient-to-r from-purple-500 to-purple-600',
-    methodology: 'Art projects, storytelling, creative interpretation, cultural appreciation'
+    methodology: 'Art projects, creative storytelling, cultural connections'
   }
 ];
 

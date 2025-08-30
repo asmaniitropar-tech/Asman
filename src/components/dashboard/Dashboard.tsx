@@ -115,23 +115,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
         </div>
 
         {/* Main Action Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <Card className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300" onClick={() => setCurrentStep('workflow')}>
+            <Card className="p-8 cursor-pointer hover:shadow-xl transition-all duration-300 h-48" onClick={() => setCurrentStep('workflow')}>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
-                  <BookOpen className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
+                  <BookOpen className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2">📂 NCERT Chapters</h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <h3 className="text-xl font-bold text-gray-800 mb-3">📂 NCERT Chapters</h3>
+                <p className="text-gray-600 mb-4">
                   Pre-loaded content for Classes 1-5. Select and transform instantly.
                 </p>
-                <div className="bg-orange-50 p-3 rounded-lg">
-                  <p className="text-xs text-orange-700 font-medium">
+                <div className="bg-orange-50 p-2 rounded-lg">
+                  <p className="text-sm text-orange-700 font-medium">
                     ✨ Most Popular Choice - Zero Prep Time!
                   </p>
                 </div>
@@ -144,17 +144,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <Card className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300" onClick={() => setCurrentStep('workflow')}>
+            <Card className="p-8 cursor-pointer hover:shadow-xl transition-all duration-300 h-48" onClick={() => setCurrentStep('workflow')}>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
-                  <Upload className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
+                  <Upload className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2">📤 Upload Material</h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <h3 className="text-xl font-bold text-gray-800 mb-3">📤 Upload Own Material</h3>
+                <p className="text-gray-600 mb-4">
                   PDF, image, text, or voice. AI converts to structured lessons.
                 </p>
-                <div className="bg-green-50 p-3 rounded-lg">
-                  <p className="text-xs text-green-700 font-medium">
+                <div className="bg-green-50 p-2 rounded-lg">
+                  <p className="text-sm text-green-700 font-medium">
                     📱 Works with phone photos of textbook pages
                   </p>
                 </div>
@@ -167,18 +167,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <Card className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300" onClick={() => setCurrentStep('workflow')}>
+            <Card className="p-8 cursor-pointer hover:shadow-xl transition-all duration-300 h-48" onClick={() => setCurrentStep('workflow')}>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
-                  <Globe className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                  <Globe className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2">🌍 Global Modules</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Add China, Japan, US, or Europe learning styles to NCERT.
+                <h3 className="text-xl font-bold text-gray-800 mb-3">🌍 Global Micro-Module</h3>
+                <p className="text-gray-600 mb-4">
+                  China / Japan / US / Europe learning styles + Auto-Suggest
                 </p>
-                <div className="bg-blue-50 p-3 rounded-lg">
-                  <p className="text-xs text-blue-700 font-medium">
-                    🎯 Optional - You decide what to include
+                <div className="bg-blue-50 p-2 rounded-lg">
+                  <p className="text-sm text-blue-700 font-medium">
+                    🎯 Checkbox Selection - Optional Enhancement
                   </p>
                 </div>
               </div>
@@ -190,17 +190,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <Card className="p-6 cursor-pointer hover:shadow-xl transition-all duration-300" onClick={() => setCurrentStep('workflow')}>
+            <Card className="p-8 cursor-pointer hover:shadow-xl transition-all duration-300 h-48" onClick={() => setCurrentStep('workflow')}>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <Bot className="w-8 h-8 text-white" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <Bot className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2">🎭 AI Character</h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Choose your AI teaching assistant's personality and voice.
+                <h3 className="text-xl font-bold text-gray-800 mb-3">🎭 AI Character Selector</h3>
+                <p className="text-gray-600 mb-4">
+                  Choose friendly avatar guide with unique personality
                 </p>
-                <div className="bg-purple-50 p-3 rounded-lg">
-                  <p className="text-xs text-purple-700 font-medium">
+                <div className="bg-purple-50 p-2 rounded-lg">
+                  <p className="text-sm text-purple-700 font-medium">
                     👩‍🏫 Vidya, Arjun, or Dadi - each unique!
                   </p>
                 </div>
@@ -286,12 +286,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onLogout }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setCurrentStep('workflow')}
-            className="bg-gradient-to-r from-orange-500 to-green-600 text-white px-12 py-4 rounded-xl text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300"
+            className="bg-gradient-to-r from-orange-500 to-green-600 text-white px-16 py-6 rounded-xl text-2xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300"
           >
             🎨 Start Creating Your AI Lesson
           </motion.button>
           <p className="text-sm text-gray-600 mt-3">
-            Transform any NCERT content into an engaging AI whiteboard experience in under 2 minutes
+            2-clicks to lesson: Select content → Generate → Teach with AI
           </p>
         </div>
       </main>

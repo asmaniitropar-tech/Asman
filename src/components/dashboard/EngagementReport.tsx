@@ -37,7 +37,7 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ lessonId }) 
       <Card className="p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
           <BarChart3 className="w-6 h-6 mr-3 text-blue-600" />
-          Post-Class Engagement Report
+          📊 Post-Class Engagement Report
         </h2>
 
         {/* Key Metrics */}
@@ -156,12 +156,18 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ lessonId }) 
 
       {/* Export Report */}
       <div className="text-center">
-        <Button variant="primary" className="flex items-center space-x-2">
-          <BarChart3 className="w-5 h-5" />
-          <span>Export Full Report</span>
-        </Button>
+        <div className="flex justify-center space-x-4">
+          <Button variant="primary" className="flex items-center space-x-2">
+            <BarChart3 className="w-5 h-5" />
+            <span>📄 Export PDF Report</span>
+          </Button>
+          <Button variant="secondary" className="flex items-center space-x-2">
+            <Share2 className="w-5 h-5" />
+            <span>📱 Share via WhatsApp</span>
+          </Button>
+        </div>
         <p className="text-sm text-gray-600 mt-2">
-          Share engagement insights with school administration or parents
+          Share insights with school administration or send simplified notes to parents
         </p>
       </div>
     </div>

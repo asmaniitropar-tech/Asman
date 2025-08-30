@@ -25,18 +25,25 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
   const [simplificationLevel, setSimplificationLevel] = useState<'normal' | 'simple' | 'very-simple'>('normal');
 
   const handleVoiceCommand = (command: string) => {
-    toast.success(`Voice command activated: "${command}"`);
+    toast.success(`🗣️ Voice command: "${command}"`);
     
     switch (command) {
       case 'simplify':
         setSimplificationLevel('simple');
-        toast.info('AI will now provide simpler explanations');
+        toast.info('✨ AI switching to simpler explanations');
         break;
       case 'translate':
-        toast.info('Language switching activated');
+        toast.info('🌐 Language switching activated');
         break;
       case 'repeat':
-        toast.info('Replaying current section');
+        toast.info('🔄 Replaying current section');
+        break;
+      case 'more-examples':
+        toast.info('📚 AI adding more examples');
+        break;
+      case 'global-mode':
+        setGlobalModulesEnabled(!globalModulesEnabled);
+        toast.info(globalModulesEnabled ? '🌍 Global mode ON' : '📚 NCERT-only mode');
         break;
       default:
         console.log('Voice command:', command);
@@ -129,6 +136,18 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
               className="w-full p-2 text-left hover:bg-gray-50 rounded"
             >
               "Repeat that" - Replay section
+            </button>
+            <button
+              onClick={() => handleVoiceCommand('more-examples')}
+              className="w-full p-2 text-left hover:bg-gray-50 rounded"
+            >
+              "Add more examples" - Extra content
+            </button>
+            <button
+              onClick={() => handleVoiceCommand('global-mode')}
+              className="w-full p-2 text-left hover:bg-gray-50 rounded"
+            >
+              "Switch to global" - Toggle modes
             </button>
           </div>
         </Card>

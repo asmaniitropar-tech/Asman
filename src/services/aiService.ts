@@ -33,7 +33,7 @@ export async function generateTeacherLessonPack(input: LessonInput): Promise<Les
     const prompt = `
 You are ASman Learning's AI assistant, creating teacher-centric lesson packs that transform NCERT content into engaging AI whiteboard experiences.
 
-TEACHER CONTEXT: This is for a teacher who wants to save prep time while making lessons more engaging. The teacher is always in control - AI suggests, teacher decides.
+TEACHER CONTEXT: This is for a teacher who wants to save prep time while making lessons more engaging. The teacher is ALWAYS in control - AI supports, never replaces. Focus on 2-clicks to lesson delivery.
 
 CONTENT: ${contentText}
 CLASS LEVEL: ${input.classLevel} (Ages ${6 + parseInt(input.classLevel)}-${7 + parseInt(input.classLevel)})
@@ -47,6 +47,7 @@ Create a comprehensive lesson pack with these components:
 
 2. SIMPLIFIED EXPLANATION (Age-appropriate for Class ${input.classLevel})
    - Use simple, clear language suitable for ${6 + parseInt(input.classLevel)}-${7 + parseInt(input.classLevel)} year olds
+   - BILINGUAL: Include both Hindi and English key terms naturally
    - Include [AI DRAWS: description] markers where AI animations should appear
    - Make abstract concepts concrete with relatable examples
    - Include cultural references that Indian children understand
@@ -54,8 +55,8 @@ Create a comprehensive lesson pack with these components:
 
 3. PRACTICAL ANIMATION
    - Description: Overall animation concept
-   - KeyFrames: 4-6 specific animation sequences that sync with teacher explanation
-   - InteractionPoints: 3-4 ways students can interact with the whiteboard animations
+   - KeyFrames: 4-6 specific CARTOON-STYLE animation sequences that sync with teacher explanation
+   - InteractionPoints: 3-4 ways students can touch/interact with smartboard animations
 
 4. AI Q&A (5-6 interactive questions)
    - Mix of question types: yes/no, multiple choice, drawing activities, open questions
@@ -84,12 +85,15 @@ Create a comprehensive lesson pack with these components:
 8. TEACHER NOTES
    - Practical tips for using the AI whiteboard
    - Voice commands the teacher can use
+   - How to pause and explain further
+   - How to switch between NCERT-only and NCERT+Global modes
    - Suggestions for adapting content during class
    - Tips for managing student interactions
+   - Mobile/tablet/smartboard specific tips
 
 Format as valid JSON with these exact keys: id, title, simplifiedExplanation, practicalAnimation (with description, keyFrames array, interactionPoints array), aiQA (array with question, answer, type, options), handsOnTask (with title, materials array, steps array, duration), globalModules (array with name, activity, culturalConnection), audioScript, teacherNotes.
 
-Remember: This is a TEACHER'S tool. Focus on empowering the teacher while creating magical learning experiences for students.
+Remember: This is a TEACHER'S tool. Focus on empowering the teacher while creating magical learning experiences for students. Keep it simple: 2-clicks to lesson delivery.
 `;
 
     const result = await model.generateContent(prompt);
