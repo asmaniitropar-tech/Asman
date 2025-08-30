@@ -36,15 +36,15 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
         try {
           let extractedText = '';
           
-        if (file.type.includes('pdf') || file.type.includes('image')) {
-          setUploadType('pdf');
+          if (file.type.includes('pdf') || file.type.includes('image')) {
+            setUploadType('pdf');
             toast.loading('Processing document...', { id: 'processing' });
             extractedText = await processOCR(file);
-        } else if (file.type.includes('audio')) {
-          setUploadType('audio');
+          } else if (file.type.includes('audio')) {
+            setUploadType('audio');
             toast.loading('Transcribing audio...', { id: 'processing' });
             extractedText = await processSpeechToText(file);
-        }
+          }
           
           setText(extractedText);
           toast.success('File processed successfully!', { id: 'processing' });
@@ -82,61 +82,71 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
           Create Interactive AI Whiteboard Content
         </h2>
 
-        {/* Upload Type Selector */}
+        {/* How it Works Section */}
         <div className="mb-6">
-          <div className="bg-blue-50 p-4 rounded-lg mb-4">
-            <h3 className="font-semibold text-blue-800 mb-2">🎯 How ASman Learning Works:</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-blue-700">
-              <div className="flex items-start space-x-2">
-                <span>📚</span>
-                <span>Upload NCERT lesson content</span>
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl mb-6">
+            <h3 className="font-bold text-blue-800 mb-4 text-lg">🎯 How ASman Learning Transforms Your Classroom:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700">
+              <div className="flex items-start space-x-3">
+                <span className="text-lg">🎨</span>
+                <div>
+                  <strong>Interactive AI Whiteboard:</strong> Teacher speaks, AI draws and animates concepts in real-time
+                </div>
               </div>
-              <div className="flex items-start space-x-2">
-                <span>🎨</span>
-                <span>AI creates interactive whiteboard visuals</span>
+              <div className="flex items-start space-x-3">
+                <span className="text-lg">👥</span>
+                <div>
+                  <strong>Student AI Assistant:</strong> Children ask questions anytime, get instant visual answers
+                </div>
               </div>
-              <div className="flex items-start space-x-2">
-                <span>👥</span>
-                <span>Students engage with personalized activities</span>
+              <div className="flex items-start space-x-3">
+                <span className="text-lg">📚</span>
+                <div>
+                  <strong>NCERT Aligned:</strong> Every lesson follows official curriculum with enhanced engagement
+                </div>
               </div>
-              <div className="flex items-start space-x-2">
-                <span>🌍</span>
-                <span>Global perspectives meet Indian values</span>
+              <div className="flex items-start space-x-3">
+                <span className="text-lg">🌍</span>
+                <div>
+                  <strong>Cultural Balance:</strong> Global perspectives rooted in Indian values and examples
+                </div>
               </div>
             </div>
           </div>
           
+          {/* Upload Type Selector */}
           <div className="grid grid-cols-3 gap-4">
-          {[
-            { type: 'text', icon: FileText, label: 'NCERT Text Content' },
-            { type: 'pdf', icon: Upload, label: 'Textbook Pages (PDF/Image)' },
-            { type: 'audio', icon: Mic, label: 'Teacher Audio Notes' }
-          ].map(({ type, icon: Icon, label }) => (
-            <motion.button
-              key={type}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => setUploadType(type as any)}
-              className={`p-4 rounded-lg border-2 transition-all duration-200 ${
-                uploadType === type
-                  ? 'border-orange-500 bg-orange-50 text-orange-700'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <Icon className="w-6 h-6 mx-auto mb-2" />
-              <span className="text-sm font-medium">{label}</span>
-            </motion.button>
-          ))}
-        </div>
+            {[
+              { type: 'text', icon: FileText, label: 'NCERT Text Content', desc: 'Copy-paste lesson text' },
+              { type: 'pdf', icon: Upload, label: 'Textbook Pages', desc: 'PDF/Image upload' },
+              { type: 'audio', icon: Mic, label: 'Teacher Notes', desc: 'Audio recordings' }
+            ].map(({ type, icon: Icon, label, desc }) => (
+              <motion.button
+                key={type}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setUploadType(type as any)}
+                className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+                  uploadType === type
+                    ? 'border-orange-500 bg-orange-50 text-orange-700'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <Icon className="w-6 h-6 mx-auto mb-2" />
+                <div className="text-sm font-medium">{label}</div>
+                <div className="text-xs text-gray-500 mt-1">{desc}</div>
+              </motion.button>
+            ))}
+          </div>
         </div>
 
         {/* Content Input */}
         {uploadType === 'text' ? (
           <Textarea
-            label="NCERT Lesson Text"
+            label="NCERT Lesson Content"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Paste your NCERT lesson content here..."
+            placeholder="Paste your NCERT lesson content here... For example: 'Chapter 3: Water Cycle - Water is everywhere around us. It falls as rain, flows in rivers...'"
             rows={8}
           />
         ) : (
@@ -191,6 +201,11 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
             onChange={(e) => setClassLevel(e.target.value)}
             options={CLASS_LEVELS}
           />
+          <div className="mt-3 p-3 bg-orange-50 rounded-lg">
+            <p className="text-sm text-orange-700">
+              🎯 AI adapts content complexity and examples for this age group
+            </p>
+          </div>
         </Card>
 
         <Card className="p-6">
@@ -217,8 +232,14 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
           className="px-12 py-4 text-xl"
         >
           <Sparkles className="w-6 h-6 mr-3" />
-          {processing ? 'Processing File...' : 'Generate Lesson Pack'}
+          {processing ? 'Processing File...' : 'Generate AI Whiteboard Lesson'}
         </Button>
+        
+        <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
+          <p className="text-sm text-gray-700">
+            🚀 <strong>What happens next:</strong> AI creates interactive whiteboard visuals, student activities, Q&A responses, and complete teacher guides - all aligned with NCERT standards!
+          </p>
+        </div>
       </div>
     </div>
   );

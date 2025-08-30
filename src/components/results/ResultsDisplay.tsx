@@ -51,7 +51,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div variants={itemVariants}>
           <LessonCard
-            title="Simplified Lesson"
+            title="AI Whiteboard Lesson"
             content={output.simplified_explanation}
             icon={<BookOpen className="w-6 h-6" />}
             color="bg-gradient-to-r from-orange-500 to-orange-600"
@@ -60,7 +60,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
 
         <motion.div variants={itemVariants}>
           <LessonCard
-            title="Practical Activity"
+            title="Interactive Classroom Activity"
             content={output.practical_activity}
             icon={<Activity className="w-6 h-6" />}
             color="bg-gradient-to-r from-green-500 to-green-600"

@@ -1,7 +1,7 @@
 export const BRAND = {
   name: 'ASman Learning',
-  tagline: 'Sky of Knowledge, Roots in India',
-  description: 'Teacher Assistant for NCERT Lessons'
+  tagline: 'Where Technology, Culture & Creativity Unite',
+  description: 'AI Whiteboard Assistant for NCERT Lessons'
 };
 
 export const COLORS = {
@@ -38,7 +38,7 @@ export const GLOBAL_MODULES = [
     character: '🤖', 
     flag: '🌍',
     description: 'AI will choose the best cultural perspective',
-    color: 'bg-blue-500'
+    color: 'bg-gradient-to-r from-blue-500 to-blue-600'
   },
   { 
     value: 'china', 
@@ -46,7 +46,7 @@ export const GLOBAL_MODULES = [
     character: '👨‍🏫', 
     flag: '🇨🇳',
     description: 'Discipline and structured learning approach',
-    color: 'bg-red-500'
+    color: 'bg-gradient-to-r from-red-500 to-red-600'
   },
   { 
     value: 'japan', 
@@ -54,7 +54,7 @@ export const GLOBAL_MODULES = [
     character: '👩‍🏫', 
     flag: '🇯🇵',
     description: 'Precision and mindful learning methods',
-    color: 'bg-pink-500'
+    color: 'bg-gradient-to-r from-pink-500 to-pink-600'
   },
   { 
     value: 'us', 
@@ -62,7 +62,7 @@ export const GLOBAL_MODULES = [
     character: '👨‍🎓', 
     flag: '🇺🇸',
     description: 'Curiosity-driven and innovative thinking',
-    color: 'bg-blue-600'
+    color: 'bg-gradient-to-r from-blue-500 to-blue-600'
   },
   { 
     value: 'europe', 
@@ -70,6 +70,6 @@ export const GLOBAL_MODULES = [
     character: '👩‍🎨', 
     flag: '🇪🇺',
     description: 'Creative and artistic learning approaches',
-    color: 'bg-purple-500'
+    color: 'bg-gradient-to-r from-purple-500 to-purple-600'
   }
 ];
