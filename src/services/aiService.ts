@@ -12,16 +12,39 @@ export const generateLessonPack = async (input: LessonInput): Promise<LessonOutp
     const globalModuleInfo = GLOBAL_MODULES.find(m => m.value === input.globalModule) || GLOBAL_MODULES[0];
     
     const prompt = `
-You are an expert teacher assistant for Indian NCERT curriculum. Create a comprehensive lesson pack for Class ${input.classLevel} students based on the following content:
+You are ASman Learning AI - an expert teacher assistant specializing in interactive whiteboard education for Indian NCERT curriculum (Class 1-5). 
 
+Your mission: Transform traditional lessons into engaging, visual, and interactive experiences that work perfectly with AI whiteboards and personalized learning.
 CONTENT TO PROCESS:
 ${input.text}
 
-REQUIREMENTS:
-1. Create a simplified explanation suitable for Class ${input.classLevel} students (ages ${getAgeRange(input.classLevel)})
-2. Design a practical hands-on activity that can be done in a classroom
-3. Generate 3-4 relevant questions with detailed answers
-4. Incorporate ${globalModuleInfo.label} learning perspective: ${globalModuleInfo.description}
+LESSON CREATION REQUIREMENTS:
+
+1. SIMPLIFIED EXPLANATION (for AI Whiteboard):
+   - Perfect for Class ${input.classLevel} students (ages ${getAgeRange(input.classLevel)})
+   - Include visual cues and animation suggestions for AI whiteboard
+   - Use simple language with relatable examples from Indian context
+   - Break complex concepts into bite-sized, visual chunks
+   - Add emoji and visual markers for whiteboard display
+
+2. PRACTICAL ACTIVITY (Classroom + Digital):
+   - Design hands-on activities that work with AI whiteboard support
+   - Include both physical materials and digital interactions
+   - Ensure every student can participate regardless of learning pace
+   - Connect to real-life examples from Indian culture and environment
+   - Provide step-by-step instructions for teachers
+
+3. STUDENT Q&A (Personalized Learning):
+   - Create 4-5 questions that students commonly ask about this topic
+   - Provide child-friendly answers with examples and analogies
+   - Include follow-up questions to encourage deeper thinking
+   - Make answers suitable for AI voice responses
+
+4. GLOBAL LEARNING INTEGRATION:
+   - Incorporate ${globalModuleInfo.label} perspective: ${globalModuleInfo.description}
+   - Balance global knowledge with strong Indian educational values
+   - Show how this topic connects to the wider world
+   - Maintain cultural sensitivity and inclusivity
 
 RESPONSE FORMAT (JSON):
 {
@@ -87,77 +110,116 @@ const generateFallbackResponse = (input: LessonInput): LessonOutput => {
   const globalModuleInfo = GLOBAL_MODULES.find(m => m.value === input.globalModule) || GLOBAL_MODULES[0];
   
   return {
-    simplified_explanation: `📚 Understanding the Lesson (Class ${input.classLevel})
+    simplified_explanation: `🎨 Interactive AI Whiteboard Lesson - Class ${input.classLevel}
 
-Let's explore this topic in a way that's perfect for Class ${input.classLevel} students!
+👋 Hello Class ${input.classLevel}! Today we're going to explore an amazing topic together!
 
-${input.text.slice(0, 200)}...
+🖼️ WHITEBOARD VISUALIZATION:
+[AI will draw and animate concepts as teacher explains]
+• Visual storytelling with moving pictures
+• Step-by-step animations that bring ideas to life
+• Interactive elements students can touch and explore
 
-🔍 Key Points:
-• We break down complex ideas into simple, fun concepts
-• We use examples from everyday life that students can easily understand
-• We connect learning to things students already know
-• We make sure every student can participate and learn
+📖 LESSON CONTENT:
+${input.text.slice(0, 300)}...
 
-🌟 Why This Matters:
-This lesson helps students build strong foundations while developing curiosity about the world around them. By understanding these concepts now, students will be better prepared for advanced topics in higher classes.
+🌟 What Makes This Special:
+• Every concept becomes a visual story on our smart whiteboard
+• Students can ask questions anytime and get instant, friendly answers
+• Learning happens at each child's own pace
+• We connect new ideas to things you already know and love
 
-💡 Fun Fact: Did you know that learning becomes 3x more effective when we connect new information to things we already know? That's exactly what we're doing here!`,
+🏠 Real-Life Connections:
+This topic appears everywhere around us! From our homes to our neighborhoods, from festivals to daily routines. The AI whiteboard will show you exactly where and how!
 
-    practical_activity: `🎯 Interactive Classroom Activity: "Discovery Learning Lab"
+🎯 Learning Goals for Today:
+✅ Understand the main concept through visual stories
+✅ Connect learning to real-life experiences
+✅ Ask curious questions and explore answers together
+✅ Build confidence through interactive participation
 
-📋 Materials Needed:
-• Chart paper (A3 size) - 1 per group
-• Colored markers/crayons
-• Sticky notes (different colors)
-• Small everyday objects for demonstration
-• Timer for activities
+💡 Teacher's Note: The AI whiteboard will automatically create animations, diagrams, and interactive elements as you teach, making every explanation come alive for your students!`,
 
-👥 Group Setup:
-• Divide class into groups of 4-5 students
-• Assign roles: Leader, Recorder, Presenter, Materials Manager
+    practical_activity: `🎯 "AI Whiteboard Discovery Lab" - Interactive Classroom Experience
 
-⏰ Activity Timeline (45 minutes):
+🎨 WHITEBOARD SETUP (AI-Powered):
+• AI creates dynamic visual workspace
+• Interactive zones for different learning activities
+• Real-time drawing and animation capabilities
+• Student response collection system
 
-🔸 Phase 1: Exploration (15 minutes)
-- Groups examine the lesson topic through hands-on exploration
-- Students discuss what they already know about the topic
-- Record initial thoughts on sticky notes
+📋 MATERIALS NEEDED:
+Physical Materials:
+• Colorful sticky notes (4 colors)
+• Simple everyday objects for demonstration
+• Chart paper for group work
+• Crayons/markers for drawing
 
-🔸 Phase 2: Investigation (20 minutes)
-- Each group focuses on a different aspect of the lesson
-- Create visual representations using drawings and simple words
-- Connect the topic to real-life examples from their community
+Digital Tools:
+• AI Whiteboard (main display)
+• Student tablets/devices (if available)
+• Voice interaction system
 
-🔸 Phase 3: Presentation (10 minutes)
-- Each group presents their findings (2 minutes per group)
-- Other students ask questions and share observations
-- Teacher facilitates discussion and clarifies concepts
+👥 ACTIVITY STRUCTURE (50 minutes):
 
-🎯 Learning Outcomes:
-✅ Students actively engage with the concept
-✅ Develop teamwork and communication skills
-✅ Build confidence through peer teaching
-✅ Create lasting memories through hands-on experience
+🔸 Phase 1: AI Whiteboard Introduction (10 minutes)
+- Teacher introduces topic while AI creates live visuals
+- Students watch concepts come alive on the whiteboard
+- AI responds to student questions with instant visual answers
+- Interactive polls: "What do you think will happen next?"
 
-📝 Assessment: Observe student participation, quality of presentations, and peer interactions.`,
+🔸 Phase 2: Hands-On Exploration (25 minutes)
+- Groups rotate through 4 learning stations:
+  Station 1: Physical exploration with real objects
+  Station 2: AI whiteboard interaction (students draw/touch)
+  Station 3: Storytelling with visual props
+  Station 4: Question corner with AI assistant
+
+🔸 Phase 3: Creative Synthesis (15 minutes)
+- Each group creates a visual story on the AI whiteboard
+- Students explain their understanding using drawings and words
+- AI helps illustrate student ideas in real-time
+- Celebration of learning with digital badges
+
+🌟 PERSONALIZED LEARNING FEATURES:
+• AI adapts explanations based on individual student responses
+• Visual learners get more diagrams and animations
+• Kinesthetic learners get interactive touch activities
+• Verbal learners get storytelling and discussion opportunities
+
+🎯 LEARNING OUTCOMES:
+✅ Students actively engage with AI-enhanced visual learning
+✅ Develop digital literacy alongside subject knowledge
+✅ Build confidence through personalized AI support
+✅ Create lasting memories through multi-sensory experiences
+✅ Practice collaboration in technology-enhanced environment
+
+📱 TEACHER SUPPORT:
+• AI provides real-time teaching suggestions
+• Automatic progress tracking for each student
+• Instant content adaptation based on class response
+• Digital lesson plan with visual cues and timing guides`,
 
     questions_and_answers: [
       {
-        q: "What is the most important thing we learned in today's lesson?",
-        a: "The most important thing is understanding how this topic connects to our daily lives. When we can see how learning applies to real situations, it becomes much more meaningful and easier to remember. This lesson shows us that education is not just about memorizing facts, but about understanding how things work in the world around us."
+        q: "How does the AI whiteboard make learning more fun than regular teaching?",
+        a: "The AI whiteboard is like having a magical drawing friend who can bring any story to life! When your teacher talks about the water cycle, you don't just hear about it - you see animated clouds moving, rain falling, and rivers flowing right on the board. You can even touch the screen to make things happen! It's like watching your favorite cartoon, but you're learning important things at the same time. Plus, if you have a question, you can ask the AI and it will draw the answer for you instantly!"
       },
       {
-        q: "How can we use what we learned today in our everyday life?",
-        a: "We can apply this learning by observing similar situations at home, in our neighborhood, or in nature. For example, we can look for patterns, ask questions about how things work, and share our discoveries with family and friends. This helps us become better observers and thinkers in all areas of life."
+        q: "Can I ask the AI questions during class without disturbing others?",
+        a: "Absolutely! The AI is designed to be your personal learning buddy. You can whisper your questions, write them on your tablet, or even draw what you're confused about. The AI understands all these ways of asking and will give you a quiet, personal answer that appears just for you. Sometimes, if your question is really good, the teacher might ask the AI to share the answer with the whole class on the big whiteboard!"
       },
       {
-        q: "What makes this lesson different from just reading from a textbook?",
-        a: "This lesson is special because it combines reading with doing, seeing, and experiencing. Instead of just memorizing information, we explore concepts through activities, discussions, and real examples. This approach helps us understand deeply and remember for a long time, making learning both fun and effective."
+        q: "How does this help me learn better than just reading from books?",
+        a: "Reading books is important, but ASman Learning makes those book ideas come alive! Instead of just reading 'plants need water,' you see an animated plant growing when you give it water on the whiteboard. You can experiment, make mistakes, and try again - all in a safe, fun way. The AI also remembers how you like to learn best and gives you activities that match your style. Some students learn by seeing, some by doing, and some by hearing - the AI helps with all of these!"
       },
       {
-        q: "How does this lesson help us prepare for higher classes?",
-        a: "This lesson builds strong thinking skills and curiosity that are essential for advanced learning. By understanding concepts thoroughly now and learning how to ask good questions, we develop the foundation needed for more complex topics in higher classes. It also teaches us how to learn effectively, which is a skill we'll use throughout our education."
+        q: "Will the AI replace my teacher?",
+        a: "Never! Your teacher is the most important person in your classroom. The AI is like a super-smart helper that makes your teacher even more amazing! Think of it like this: your teacher is the captain of a ship, and the AI is a helpful crew member. The teacher decides what to teach and how to help you grow, while the AI provides cool tools and visuals to make learning more exciting. Your teacher's care, wisdom, and personal attention can never be replaced by any technology!"
+      },
+      {
+        q: "How does this connect our Indian culture with learning from other countries?",
+        a: "ASman Learning is like a bridge that connects the best of both worlds! We start with our strong Indian values - respect for teachers, family connections, and cultural wisdom. Then we add the best learning methods from around the world. For example, we might learn about fractions using Indian sweets like laddu and jalebi, but also see how children in Japan use origami to understand the same concept. This way, we stay proud of our roots while becoming global citizens who can learn from everyone!"
       }
     ],
 

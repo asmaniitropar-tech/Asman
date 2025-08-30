@@ -46,7 +46,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onSignup }) => {
           <div className="text-center mb-8">
             <Logo size="lg" showTagline />
             <p className="text-gray-600 mt-4 text-lg">
-              Welcome to ASman Learning – Teacher AI Assistant
+              Transform Early Education with AI-Powered Interactive Learning
             </p>
           </div>
 

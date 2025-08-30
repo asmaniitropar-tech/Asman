@@ -15,7 +15,7 @@ export const QACard: React.FC<QACardProps> = ({ questions }) => {
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 text-white">
         <div className="flex items-center space-x-3">
           <HelpCircle className="w-6 h-6" />
-          <h3 className="text-lg font-semibold">Questions & Answers</h3>
+          <h3 className="text-lg font-semibold">Student Q&A (AI Assistant Ready)</h3>
         </div>
       </div>
       <div className="p-6 space-y-4">

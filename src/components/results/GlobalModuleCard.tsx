@@ -51,10 +51,14 @@ export const GlobalModuleCard: React.FC<GlobalModuleCardProps> = ({
         <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 mb-3">
             <Sparkles className="w-5 h-5 text-purple-600" />
-            <span className="font-semibold text-purple-800">Cultural Learning Perspective</span>
+            <span className="font-semibold text-purple-800">Global Learning Integration</span>
           </div>
           <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-            {content}
+            🌍 This lesson incorporates {moduleName} learning methodologies while maintaining strong Indian educational values.
+            
+            The AI whiteboard will seamlessly blend global perspectives with local context, helping students understand how knowledge connects across cultures while staying rooted in their own heritage.
+            
+            Students will see examples from both Indian traditions and {moduleName} approaches, creating a rich, multicultural learning experience that prepares them for our interconnected world.
           </p>
         </div>
       </div>

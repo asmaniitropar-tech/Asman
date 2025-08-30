@@ -109,10 +109,14 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
         {/* Content Input */}
         {uploadType === 'text' ? (
           <Textarea
-            label="NCERT Lesson Text"
+            label="NCERT Lesson Content"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Paste your NCERT lesson content here..."
+            placeholder="Paste your NCERT lesson content here... 
+
+Example: 'Water Cycle - Water from rivers and seas goes up to the sky as water vapor. It forms clouds and comes back as rain...'
+
+The AI will create interactive whiteboard animations and student-friendly explanations!"
             rows={8}
           />
         ) : (
@@ -137,15 +141,15 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
                 ? 'Processing your file...' 
                 : isDragActive 
                   ? 'Drop your file here' 
-                  : `Upload ${uploadType === 'pdf' ? 'PDF or Image' : 'Audio'} file`
+                  : `Upload ${uploadType === 'pdf' ? 'NCERT Textbook Pages' : 'Teacher Audio Notes'}`
               }
             </p>
             <p className="text-sm text-gray-500">
               {processing
-                ? 'Please wait while we extract the content...'
+                ? 'AI is extracting content for whiteboard visualization...'
                 : uploadType === 'pdf' 
-                  ? 'Supports PDF, PNG, JPG files' 
-                  : 'Supports MP3, WAV, M4A files'
+                  ? 'Upload textbook pages - AI will extract and visualize content' 
+                  : 'Upload audio notes - AI will transcribe and create activities'
               }
             </p>
           </div>
@@ -162,11 +166,16 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6">
           <Select
-            label="Class Level"
+            label="Class Level (Age Group)"
             value={classLevel}
             onChange={(e) => setClassLevel(e.target.value)}
             options={CLASS_LEVELS}
           />
+          <div className="mt-3 p-3 bg-orange-50 rounded-lg">
+            <p className="text-sm text-orange-700">
+              🎯 Content will be tailored for Class {classLevel} students (ages {getAgeRange(classLevel)})
+            </p>
+          </div>
         </Card>
 
         <Card className="p-6">
@@ -178,7 +187,7 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
           />
           <div className="mt-3 p-3 bg-blue-50 rounded-lg">
             <p className="text-sm text-blue-700">
-              {GLOBAL_MODULES.find(m => m.value === globalModule)?.description}
+              🌍 {GLOBAL_MODULES.find(m => m.value === globalModule)?.description}
             </p>
           </div>
         </Card>
@@ -193,9 +202,20 @@ export const UploadSection: React.FC<UploadSectionProps> = ({ onGenerate, loadin
           className="px-12 py-4 text-xl"
         >
           <Sparkles className="w-6 h-6 mr-3" />
-          {processing ? 'Processing File...' : 'Generate Lesson Pack'}
+          {processing ? 'Processing Content...' : 'Create AI Whiteboard Lesson 🎨'}
         </Button>
       </div>
     </div>
   );
+};
+
+const getAgeRange = (classLevel: string): string => {
+  const ageMap: Record<string, string> = {
+    '1': '6-7 years',
+    '2': '7-8 years', 
+    '3': '8-9 years',
+    '4': '9-10 years',
+    '5': '10-11 years'
+  };
+  return ageMap[classLevel] || '8-10 years';
 };

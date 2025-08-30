@@ -41,10 +41,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
     >
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-2">
-          Your Lesson Pack is Ready! ✨
+          Your AI Whiteboard Lesson is Ready! 🎨✨
         </h2>
         <p className="text-gray-600">
-          AI-generated content tailored for Class {classLevel}
+          Interactive content designed for Class {classLevel} with AI whiteboard integration
         </p>
       </div>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, ArrowUp } from 'lucide-react';
+import { BookOpen, Sparkles, Users } from 'lucide-react';
 
 interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
@@ -25,9 +25,10 @@ export const Logo: React.FC<LogoProps> = ({ size = 'md', showTagline = false }) 
         <div className="relative">
           {/* Child figure pointing up */}
           <div className={`${sizeClasses[size]} relative flex items-center justify-center`}>
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-400 to-orange-500 rounded-full opacity-20"></div>
-            <ArrowUp className="w-6 h-6 text-orange-600 absolute -top-1 -right-1 z-10" />
-            <BookOpen className="w-8 h-8 text-green-700" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-400 to-green-500 rounded-full opacity-20"></div>
+            <Sparkles className="w-4 h-4 text-blue-600 absolute -top-1 -right-1 z-10" />
+            <BookOpen className="w-8 h-8 text-orange-600" />
+            <Users className="w-4 h-4 text-green-600 absolute -bottom-1 -left-1 z-10" />
           </div>
         </div>
         <div>

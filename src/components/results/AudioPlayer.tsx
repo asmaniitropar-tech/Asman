@@ -48,7 +48,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ text }) => {
       <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-4 text-white">
         <div className="flex items-center space-x-3">
           <Volume2 className="w-6 h-6" />
-          <h3 className="text-lg font-semibold">AI Narration</h3>
+          <h3 className="text-lg font-semibold">AI Voice Assistant</h3>
         </div>
       </div>
       <div className="p-6">
@@ -68,7 +68,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ text }) => {
             ) : (
               <>
                 <Play className="w-5 h-5" />
-                <span>Play Narration</span>
+                <span>Start AI Voice Guide</span>
               </>
             )}
           </Button>
@@ -85,7 +85,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({ text }) => {
         
         <div className="mt-4 p-4 bg-gray-50 rounded-lg">
           <p className="text-sm text-gray-600 text-center">
-            High-quality AI narration will help students better understand the lesson content
+            🎙️ AI voice assistant provides personalized explanations and answers student questions in real-time
           </p>
         </div>
       </div>

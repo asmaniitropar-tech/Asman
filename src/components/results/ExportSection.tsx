@@ -114,7 +114,7 @@ ${lessonOutput.global_module_used}
       <div className="bg-gradient-to-r from-green-500 to-green-600 p-4 text-white">
         <div className="flex items-center space-x-3">
           <Download className="w-6 h-6" />
-          <h3 className="text-lg font-semibold">Export Lesson Pack</h3>
+          <h3 className="text-lg font-semibold">Export AI Whiteboard Lesson</h3>
         </div>
       </div>
       <div className="p-6">
@@ -125,7 +125,7 @@ ${lessonOutput.global_module_used}
             className="flex items-center justify-center space-x-2"
           >
             <FileText className="w-5 h-5" />
-            <span>Export PDF</span>
+            <span>Teacher Guide PDF</span>
           </Button>
           
           <Button
@@ -134,7 +134,7 @@ ${lessonOutput.global_module_used}
             className="flex items-center justify-center space-x-2"
           >
             <FileText className="w-5 h-5" />
-            <span>Export Word</span>
+            <span>Lesson Plan Doc</span>
           </Button>
           
           <Button
@@ -142,13 +142,13 @@ ${lessonOutput.global_module_used}
             className="flex items-center justify-center space-x-2"
           >
             <Share2 className="w-5 h-5" />
-            <span>Share</span>
+            <span>Share with Teachers</span>
           </Button>
         </div>
         
         <div className="mt-4 p-4 bg-green-50 rounded-lg">
           <p className="text-sm text-green-700 text-center">
-            Download your complete lesson pack to use in your classroom
+            📱 Export complete AI whiteboard lesson with visual cues, activities, and student interaction guides
           </p>
         </div>
       </div>

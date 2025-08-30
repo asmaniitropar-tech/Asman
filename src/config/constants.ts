@@ -24,11 +24,11 @@ export const COLORS = {
 };
 
 export const CLASS_LEVELS = [
-  { value: '1', label: 'Class 1' },
-  { value: '2', label: 'Class 2' },
-  { value: '3', label: 'Class 3' },
-  { value: '4', label: 'Class 4' },
-  { value: '5', label: 'Class 5' }
+  { value: '1', label: 'Class 1 (Ages 6-7)' },
+  { value: '2', label: 'Class 2 (Ages 7-8)' },
+  { value: '3', label: 'Class 3 (Ages 8-9)' },
+  { value: '4', label: 'Class 4 (Ages 9-10)' },
+  { value: '5', label: 'Class 5 (Ages 10-11)' }
 ];
 
 export const GLOBAL_MODULES = [
