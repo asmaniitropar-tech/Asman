@@ -80,7 +80,11 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       </motion.div>
 
       <motion.div variants={itemVariants}>
-        <AudioPlayer text={output.simplified_explanation} />
+        <AudioPlayer 
+          text={output.simplified_explanation} 
+          classLevel={classLevel}
+          topic={extractTopicFromContent(output.simplified_explanation)}
+        />
       </motion.div>
 
       <motion.div variants={itemVariants}>
@@ -89,3 +93,18 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
     </motion.div>
   );
 };
+
+// Helper function to extract topic from content
+function extractTopicFromContent(content: string): string {
+  // Extract the main topic from the first sentence or paragraph
+  const firstSentence = content.split('.')[0];
+  const words = firstSentence.split(' ');
+  
+  // Look for key educational terms
+  const topicKeywords = words.filter(word => 
+    word.length > 4 && 
+    !['This', 'lesson', 'will', 'help', 'students', 'understand', 'learn'].includes(word)
+  );
+  
+  return topicKeywords.slice(0, 2).join(' ') || 'the lesson topic';
+}
