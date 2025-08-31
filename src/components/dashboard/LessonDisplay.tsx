@@ -285,19 +285,18 @@ export const LessonDisplay: React.FC<LessonDisplayProps> = ({
                     <span className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
                       {index + 1}
                     </span>
+                    <p className="text-gray-700 flex-1">{step}</p>
                     {teachingMode && (
                       <Button
                         onClick={() => speakText(step)}
                         variant="outline"
                         size="sm"
-                        className="ml-auto"
                         disabled={!voiceEnabled}
                       >
-                        <Volume2 className="w-3 h-3 mr-1" />
+                        <Play className="w-3 h-3 mr-1" />
                         Read Step
                       </Button>
                     )}
-                  </div>
                   </div>
                 ))}
               </div>
