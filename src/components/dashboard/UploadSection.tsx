@@ -34,18 +34,18 @@ export const UploadSection: React.FC<UploadSectionProps> = ({
           let extractedText = '';
           
           if (file.type.includes('pdf') || file.type.includes('image')) {
-            toast.loading('Reading your document...', { id: 'processing' });
+            toast.loading('🔍 AI is reading your document...', { id: 'processing' });
             extractedText = await processOCR(file);
           } else if (file.type.includes('audio')) {
-            toast.loading('Transcribing your voice...', { id: 'processing' });
+            toast.loading('👂 AI is listening to your voice...', { id: 'processing' });
             extractedText = await processSpeechToText(file);
           }
           
           onContentExtracted(extractedText);
-          toast.success('Content extracted successfully!', { id: 'processing' });
+          toast.success('✅ Content ready for lesson creation!', { id: 'processing' });
         } catch (error) {
           console.error('File processing error:', error);
-          toast.error(`Failed to process ${file.name}. Please try again.`, { id: 'processing' });
+          toast.error(`❌ Could not process ${file.name}. Please try a clearer image or different file.`, { id: 'processing' });
         } finally {
           setProcessing(false);
         }

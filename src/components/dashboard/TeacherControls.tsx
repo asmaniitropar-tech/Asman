@@ -25,25 +25,25 @@ export const TeacherControls: React.FC<TeacherControlsProps> = ({
   const [simplificationLevel, setSimplificationLevel] = useState<'normal' | 'simple' | 'very-simple'>('normal');
 
   const handleVoiceCommand = (command: string) => {
-    toast.success(`🗣️ Voice command: "${command}"`);
+    toast.success(`🗣️ Teacher said: "${command}"`);
     
     switch (command) {
       case 'simplify':
         setSimplificationLevel('simple');
-        toast.info('✨ AI switching to simpler explanations');
+        toast.info('✨ AI: "Making explanation simpler for students"');
         break;
       case 'translate':
-        toast.info('🌐 Language switching activated');
+        toast.info('🌐 AI: "Switching to Hindi/English as requested"');
         break;
       case 'repeat':
-        toast.info('🔄 Replaying current section');
+        toast.info('🔄 AI: "Repeating that section for better understanding"');
         break;
       case 'more-examples':
-        toast.info('📚 AI adding more examples');
+        toast.info('📚 AI: "Adding more examples to help students understand"');
         break;
       case 'global-mode':
         setGlobalModulesEnabled(!globalModulesEnabled);
-        toast.info(globalModulesEnabled ? '🌍 Global mode ON' : '📚 NCERT-only mode');
+        toast.info(globalModulesEnabled ? '🌍 AI: "Showing global learning activities"' : '📚 AI: "Focusing on NCERT content only"');
         break;
       default:
         console.log('Voice command:', command);

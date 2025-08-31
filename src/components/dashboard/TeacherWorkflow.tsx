@@ -42,7 +42,7 @@ export const TeacherWorkflow: React.FC<TeacherWorkflowProps> = ({
 
   const handleGenerate = async () => {
     if (!canProceed()) {
-      toast.error('Please complete all required fields before generating.');
+      toast.error('Please select content before generating lesson pack.');
       return;
     }
     
@@ -55,7 +55,7 @@ export const TeacherWorkflow: React.FC<TeacherWorkflowProps> = ({
       uploadType: contentType
     };
     
-    toast.loading('Creating your AI lesson pack...', { id: 'workflow-generation' });
+    toast.loading('🎨 AI is creating your interactive lesson pack...', { id: 'workflow-generation' });
     await onGenerate(input);
   };
 
